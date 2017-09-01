@@ -7,7 +7,7 @@
   "scripts": {
     "ngc": "ngc",
     "build": "rm -rf aot dist && npm run ngc",
-    "publish": "npm run build && npm publish"
+    "submit": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
