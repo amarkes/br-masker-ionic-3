@@ -1,11 +1,4 @@
-import { Directive, Input, HostListener, ElementRef } from '@angular/core';
-
-/**
- * Generated class for the BrmaskerIonic_3Directive directive.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/DirectiveMetadata-class.html
- * for more info on Angular Directives.
- */
+import { Directive, Input, HostListener } from '@angular/core';
 @Directive({
   selector: '[brmasker]' // Attribute selector
 })
@@ -14,17 +7,17 @@ export class BrMaskerIonic3 {
   @HostListener('keyup', ['$event'])
   inputChanged(event: any): void {
     if (event.target.value) {
-      this.onInput(event.target.value);
+      event.target.value = this.onInput(event.target.value);
     }
   }
-  constructor(private element: ElementRef) {
+  constructor() {
   }
   private onInput(value: any): void {
     const ret = this.formataCampo(value, this.brmaskere.mask, this.brmaskere.len);
-    
-    if (ret) {
-      this.element.nativeElement.value = ret;
-    }
+    return ret;
+    // if (ret) {
+    //   this.element.nativeElement.value = ret;
+    // }
   }
   private formataCampo(campo: string, Mascara: string, tamanho: number): any {
     let boleanoMascara;
