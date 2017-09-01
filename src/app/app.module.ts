@@ -4,16 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MaskerModule } from './components/masker/masker.module';
 
-
 @NgModule({
-  declarations: [
-    MaskerModule
-  ],
   exports: [
     MaskerModule
   ],
   imports: [
-    MaskerModule
+    BrowserModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
