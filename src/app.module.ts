@@ -2,11 +2,15 @@ import { Observable } from 'rxjs';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { MaskerModule } from './components/masker/masker.module';
+import { BrMaskerIonic3 } from './directives/brmasker-ionic-3';
+
 
 @NgModule({
+  declarations: [
+    BrMaskerIonic3
+  ],
   exports: [
-    MaskerModule
+    BrMaskerIonic3
   ],
   imports: [
     BrowserModule
