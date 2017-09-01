@@ -2,22 +2,20 @@ import { Observable } from 'rxjs';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { MyComponent } from './components/my-component';
-import { MyProvider } from './providers/my-provider';
+import { MaskerModule } from './components/masker/masker.module';
 
 @NgModule({
   declarations: [
-    MyComponent
+    MaskerModule
   ],
-  providers: [ MyProvider ],
   exports: [
-    MyComponent
+    MaskerModule
   ],
   imports: [
-    BrowserModule
+    MaskerModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class MyModule {}
+export class BrMaskerModule {}

@@ -29,5 +29,9 @@
     "@types/node": "^6.0.49",
     "rxjs": ">=5.0.0-beta.12",
     "typescript": "^2.0.3"
+  },
+  "dependencies": {
+    "@angular/forms": "^2.1.1",
+    "@angular/platform-browser": "^2.1.1"
   }
 }

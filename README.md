@@ -1,9 +1,9 @@
 # brmasker-ionic
 
-[![GitHub issues](https://img.shields.io/github/issues/amarkes/brmasker-ionic.svg)](https://github.com/amarkes/br-masker-ionic-3/issues)
-[![GitHub stars](https://img.shields.io/github/stars/amarkes/brmasker-ionic.svg)](https://github.com/amarkes/br-masker-ionic-3/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/amarkes/brmasker-ionic.svg)](https://github.com/amarkes/br-masker-ionic-3/network)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/amarkes/brmasker-ionic/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/amarkes/br-masker-ionic-3.svg)](https://github.com/amarkes/br-masker-ionic-3/issues)
+[![GitHub stars](https://img.shields.io/github/stars/amarkes/br-masker-ionic-3.svg)](https://github.com/amarkes/br-masker-ionic-3/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/amarkes/br-masker-ionic-3.svg)](https://github.com/amarkes/br-masker-ionic-3/network)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/amarkes/br-masker-ionic-3/master/LICENSE)
 [![Build Status](https://travis-ci.org/amarkes/brmasker-ionic.svg?branch=master)](https://travis-ci.org/amarkes/br-masker-ionic-3)
 
 
