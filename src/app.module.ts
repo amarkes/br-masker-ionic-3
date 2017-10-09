@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { BrMaskerIonic3 } from './directives/brmasker-ionic-3';
 
@@ -13,7 +12,7 @@ import { BrMaskerIonic3 } from './directives/brmasker-ionic-3';
     BrMaskerIonic3
   ],
   imports: [
-    BrowserModule
+    CommonModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
