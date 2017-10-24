@@ -48,6 +48,62 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 })
 
 ```
+
+# Inputs
+money: boolean
+phone: boolean
+person: boolean
+
+### Exemple for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
+
+
+
+```html
+<ion-item>
+	<ion-input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'', len:18}" [person]="true"></ion-input>
+</ion-item>
+```
+
+### usage in input
+
+```html
+<input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'', len:18}" [person]="true" value="">
+```
+
+### Exemple for Real `999,99`
+
+
+
+```html
+<ion-item>
+	<ion-input type="text" name="money" placeholder="(R$) Real" [brmasker]="{mask:'', len:18}" [money]="true"></ion-input>
+</ion-item>
+```
+
+### usage in input
+
+```html
+<input type="text" name="money" placeholder="(R$) Real" [brmasker]="{mask:'', len:18}" [person]="money" value="">
+```
+
+### Exemple for Phone `(99) 9999-9999` / `(99) 99999-9999`
+
+
+
+```html
+<ion-item>
+	<ion-input type="text" name="phone" placeholder="Phone" [brmasker]="{mask:'', len:15}" [phone]="true"></ion-input>
+</ion-item>
+```
+
+### usage in input
+
+```html
+<input type="text" name="phone" placeholder="Phone" [brmasker]="{mask:'', len:15}" [phone]="money" value="">
+```
+
+
+
 # Characters
 
 `- . / ( ) , * + @ # $ & %`
