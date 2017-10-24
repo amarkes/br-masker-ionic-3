@@ -50,9 +50,9 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 ```
 
 # Inputs
-money: boolean
-phone: boolean
-person: boolean
+* money: boolean
+* phone: boolean
+* person: boolean
 
 ### Exemple for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
 
