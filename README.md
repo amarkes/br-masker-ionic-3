@@ -50,9 +50,27 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 ```
 
 # Inputs
-* money: boolean
-* phone: boolean
-* person: boolean
+
+* brmasker: BrModel
+
+```js
+	BrModel = {
+	 mask: string;
+	 len: number;
+	 money: boolean;
+	 phone: boolean;
+	 person: boolean;
+	}
+```
+
+
+| Name | type | info |
+| ------ | ------ | ------ |
+| mask | string | Optional |
+| len | string | Optional |
+| money | boolean | Optional |
+| phone | boolean | Optional |
+| person | boolean | Optional |
 
 ### Exemple for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
 
@@ -60,14 +78,14 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 ```html
 <ion-item>
-	<ion-input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'', len:18}" [person]="true"></ion-input>
+	<ion-input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{person: true}"></ion-input>
 </ion-item>
 ```
 
 ### usage in input
 
 ```html
-<input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'', len:18}" [person]="true" value="">
+<input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{person: true}" value="">
 ```
 
 ### Exemple for Real `999,99`
@@ -76,14 +94,14 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 ```html
 <ion-item>
-	<ion-input type="text" name="money" placeholder="(R$) Real" [brmasker]="{mask:'', len:18}" [money]="true"></ion-input>
+	<ion-input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true}"></ion-input>
 </ion-item>
 ```
 
 ### usage in input
 
 ```html
-<input type="text" name="money" placeholder="(R$) Real" [brmasker]="{mask:'', len:18}" [person]="money" value="">
+<input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true}" value="">
 ```
 
 ### Exemple for Phone `(99) 9999-9999` / `(99) 99999-9999`
@@ -92,14 +110,14 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 ```html
 <ion-item>
-	<ion-input type="text" name="phone" placeholder="Phone" [brmasker]="{mask:'', len:15}" [phone]="true"></ion-input>
+	<ion-input type="text" name="phone" placeholder="Phone" [brmasker]="{phone: true}"></ion-input>
 </ion-item>
 ```
 
 ### usage in input
 
 ```html
-<input type="text" name="phone" placeholder="Phone" [brmasker]="{mask:'', len:15}" [phone]="money" value="">
+<input type="text" name="phone" placeholder="Phone" [brmasker]="{phone: true}" value="">
 ```
 
 
@@ -108,15 +126,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 `- . / ( ) , * + @ # $ & %`
 
-# Guide
 
-[brmasker]="{mask:'000.000.000-00', len:14}"
-
-[brmasker] = component receive array (mask, len)
-
-mask --> required / default = '' / custom mask
-
-len --> required / default = 0 / number of length
 
 ### data
 ```html
@@ -127,22 +137,22 @@ len --> required / default = 0 / number of length
 [brmasker]="{mask:'00.000-000', len:10}"
 ```
 
-### cpf
+### custom cpf
 ```html
 [brmasker]="{mask:'000.000.000-00', len:14}"
 ```
 
-### cnpj
+### custom cnpj
 ```html
 [brmasker]="{mask:'00.000.000/0000-00', len:18}"
 ```
 
-### telefone
+### custom telefone
 ```html
 [brmasker]="{mask:'(00) 0000-0000', len:14}"
 ```
 
-### whatsapp
+### custom whatsapp
 ```html
 [brmasker]="{mask:'(00) 00000-0000', len:15}"
 ```
@@ -164,3 +174,9 @@ npm run build
 ```sh
 npm publish
 ```
+
+# Changelog
+
+### v1.0.0
+
+- Suport reactive form

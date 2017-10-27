@@ -1,45 +1,76 @@
-import { Directive, Input, HostListener } from '@angular/core';
+import { Directive, Input, HostListener, OnInit, ElementRef, Renderer} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+
+export class BrModel {
+  mask: string;
+  len: number;
+  person: boolean;
+  phone: boolean;
+  money: boolean;
+}
+
 @Directive({
-  selector: '[brmasker]' // Attribute selector
+  selector: '[brmasker]',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: BrMaskerIonic3,
+    multi: true
+  }]
 })
-export class BrMaskerIonic3 {
-  @Input('brmasker') brmaskere: any;
-  @Input() money: boolean = false;
-  @Input() phone: boolean = false;
-  @Input() person: boolean = false;
+export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
+  @Input() brmasker: BrModel = new BrModel();
   @HostListener('keyup', ['$event'])
-  inputChanged(event: any): void {
-    if (event.target.value) {
-      if (this.money) {
-        event.target.value = this.moneyMask(this.onInput(event.target.value));
-        return;
-      }
-      if (this.phone) {
-        event.target.value = this.phoneMask(event.target.value);
-        return;
-      }
-      if (this.person) {
-        event.target.value = this.peapollMask(event.target.value);
-        return;
-      }
-      event.target.value = this.onInput(event.target.value);
-    }
+  inputKeyup(event: any): void {
+      event.target.value = this.returnValue(event.target.value);
   }
-  constructor() {
+  constructor(private _renderer: Renderer, private _elementRef: ElementRef) {
+  }
+  ngOnInit(): void {
+  }
+  writeValue(fn: any): void {
+    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(fn));
+  }
+  registerOnChange(fn: any): void {
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  returnValue(value: string): any {
+    if (!this.brmasker.mask) { this.brmasker.mask = ''; }
+    if (value) {
+      if (this.brmasker.money) {
+        return this.moneyMask(this.onInput(value));
+      }
+      if (this.brmasker.phone) {
+        return this.phoneMask(value);
+      }
+      if (this.brmasker.person) {
+        return this.peapollMask(value);
+      }
+      return this.onInput(value);
+    } else {
+      return '';
+    }
   }
   private phoneMask(v: any): void {
     if (v.length > 14) {
-      this.brmaskere.mask = '(99) 99999-9999';
+      this.brmasker.len = 15;
+      this.brmasker.mask = '(99) 99999-9999';
     } else {
-      this.brmaskere.mask = '(99) 9999-9999';
+      this.brmasker.len = 14;
+      this.brmasker.mask = '(99) 9999-9999';
     }
     return this.onInput(v);
   }
   private peapollMask(v: any): void {
     if (v.length > 14) {
-      this.brmaskere.mask = '99.999.999/9999-99';
+      this.brmasker.len = 18;
+      this.brmasker.mask = '99.999.999/9999-99';
     } else {
-      this.brmaskere.mask = '999.999.999-99';
+      this.brmasker.len = 14;
+      this.brmasker.mask = '999.999.999-99';
     }
     return this.onInput(v);
   }
@@ -49,26 +80,27 @@ export class BrMaskerIonic3 {
     return tmp;
   }
   private onInput(value: any): void {
-    const ret = this.formataCampo(value, this.brmaskere.mask, this.brmaskere.len);
+    const ret = this.formataCampo(value, this.brmasker.mask, this.brmasker.len);
     return ret;
     // if (ret) {
     //   this.element.nativeElement.value = ret;
     // }
   }
   private formataCampo(campo: string, Mascara: string, tamanho: number): any {
+    if (!tamanho) { tamanho = 99999999999 ; }
     let boleanoMascara;
     const exp = /\-|\.|\/|\(|\)|\,|\*|\+|\@|\#|\$|\&|\%| /g;
-    const campoSoNumeros = campo.toString().replace( exp, '' );
+    const campoSoNumeros = campo.toString().replace(exp, '');
     let posicaoCampo = 0;
     let NovoValorCampo = '';
     let TamanhoMascara = campoSoNumeros.length;
     for (let i = 0; i < TamanhoMascara; i++) {
       if (i < tamanho) {
-        boleanoMascara  = ((Mascara.charAt(i) === '-') || (Mascara.charAt(i) === '.') || (Mascara.charAt(i) === '/'));
-        boleanoMascara  = boleanoMascara || ((Mascara.charAt(i) === '(') || (Mascara.charAt(i) === ')') || (Mascara.charAt(i) === ' '));
-        boleanoMascara  = boleanoMascara || ((Mascara.charAt(i) === ',') || (Mascara.charAt(i) === '*') || (Mascara.charAt(i) === '+'));
-        boleanoMascara  = boleanoMascara || ((Mascara.charAt(i) === '@') || (Mascara.charAt(i) === '#') );
-        boleanoMascara  = boleanoMascara || ((Mascara.charAt(i) === '$') || (Mascara.charAt(i) === '&') || (Mascara.charAt(i) === '%'));
+        boleanoMascara = ((Mascara.charAt(i) === '-') || (Mascara.charAt(i) === '.') || (Mascara.charAt(i) === '/'));
+        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === '(') || (Mascara.charAt(i) === ')') || (Mascara.charAt(i) === ' '));
+        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === ',') || (Mascara.charAt(i) === '*') || (Mascara.charAt(i) === '+'));
+        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === '@') || (Mascara.charAt(i) === '#'));
+        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === '$') || (Mascara.charAt(i) === '&') || (Mascara.charAt(i) === '%'));
         if (boleanoMascara) {
           NovoValorCampo += Mascara.charAt(i);
           TamanhoMascara++;
