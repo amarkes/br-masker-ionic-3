@@ -177,6 +177,10 @@ npm publish
 
 # Changelog
 
+### v1.0.1
+
+- fix compiler project for npm
+
 ### v1.0.0
 
 - Suport reactive form
