@@ -1,0 +1,1 @@
+export * from './brmasker-ionic-3';
