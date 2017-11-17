@@ -177,6 +177,10 @@ npm publish
 
 # Changelog
 
+### v1.0.2
+
+- fix number in phone and person
+
 ### v1.0.1
 
 - fix compiler project for npm
