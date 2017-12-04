@@ -177,6 +177,10 @@ npm publish
 
 # Changelog
 
+### v1.0.3
+
+- Updating devdependencies
+
 ### v1.0.2
 
 - fix number in phone and person
