@@ -184,9 +184,16 @@ npm publish
 
 # Changelog
 
+### v1.0.4
+
+- percent mask #pull #23
+- fix(events): ionic has changed event names #pull #22
+
+
 ### v1.0.3
 
 - Updating devdependencies
+
 
 ### v1.0.2
 
