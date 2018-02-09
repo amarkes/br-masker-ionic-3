@@ -71,6 +71,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   }
   private percentMask(v:any):void {
     let tmp = v;
+    tmp = tmp.replace(/%/,'');
     tmp = tmp.replace(/([0-9]{0})$/g, '%$1');
     return tmp;
   }
