@@ -8,6 +8,7 @@ export class BrModel {
   person: boolean;
   phone: boolean;
   money: boolean;
+  percent:boolean;
 }
 
 @Directive({
@@ -60,10 +61,18 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       if (this.brmasker.person) {
         return this.peapollMask(value);
       }
+      if (this.brmasker.percent) {
+        return this.percentMask(value)
+      }
       return this.onInput(value);
     } else {
       return '';
     }
+  }
+  private percentMask(v:any):void {
+    let tmp = v;
+    tmp = tmp.replace(/([0-9]{0})$/g, '%$1');
+    return tmp;
   }
   private phoneMask(v: any): void {
     let n = v;

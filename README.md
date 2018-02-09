@@ -60,6 +60,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 	 money: boolean;
 	 phone: boolean;
 	 person: boolean;
+	 percent:boolean;
 	}
 ```
 
@@ -71,6 +72,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 | money | boolean | Optional |
 | phone | boolean | Optional |
 | person | boolean | Optional |
+| percent | boolean | Optional |
 
 ### Exemple for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
 
@@ -102,6 +104,11 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 ```html
 <input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true}" value="">
+```
+
+### Exemple for Percent `1%` / `100%`
+```html
+<input type="text" name="money" placeholder="(R$) Real" [brmasker]="{percent: true}" value="">
 ```
 
 ### Exemple for Phone `(99) 9999-9999` / `(99) 99999-9999`
