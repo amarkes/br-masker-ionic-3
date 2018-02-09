@@ -108,7 +108,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 ### Exemple for Percent `1%` / `100%`
 ```html
-<input type="text" name="money" placeholder="(R$) Real" [brmasker]="{percent: true}" value="">
+<input type="text" name="percent" placeholder="% Percent" [brmasker]="{percent: true}" value="">
 ```
 
 ### Exemple for Phone `(99) 9999-9999` / `(99) 99999-9999`
