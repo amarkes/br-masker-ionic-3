@@ -26,15 +26,15 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     event.target.value = this.returnValue(event.target.value);
     this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.target.value));
   }
-  @HostListener('blur', ['$event'])
+  @HostListener('ionBlur', ['$event._native.nativeElement'])
   inputOnblur(event: any): void {
-    event.target.value = this.returnValue(event.target.value);
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.target.value));
+    event.value = this.returnValue(event.value);
+    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.value));
   }
-  @HostListener('focus', ['$event'])
+  @HostListener('ionFocus', ['$event._native.nativeElement'])
   inputFocus(event: any): void {
-    event.target.value = this.returnValue(event.target.value);
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.target.value));
+    event.value = this.returnValue(event.value);
+    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.value));
   }
   constructor(private _renderer: Renderer, private _elementRef: ElementRef) {
   }
