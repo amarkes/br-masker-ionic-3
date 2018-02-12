@@ -19,34 +19,48 @@ export class BrModel {
     multi: true
   }]
 })
+
 export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   @Input() brmasker: BrModel = new BrModel();
+
   @HostListener('keyup', ['$event'])
   inputKeyup(event: any): void {
-    event.target.value = this.returnValue(event.target.value);
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.target.value));
+    const value = this.returnValue(event.target.value);
+    this.writeValue(value);
+    event.target.value = value;
   }
-  @HostListener('ionBlur', ['$event._native.nativeElement'])
+
+  @HostListener('ionBlur', ['$event'])
   inputOnblur(event: any): void {
-    event.value = this.returnValue(event.value);
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.value));
+    const value = this.returnValue(event.value);
+    this.writeValue(value);
+    event.value = value;
   }
-  @HostListener('ionFocus', ['$event._native.nativeElement'])
+
+  @HostListener('ionFocus', ['$event'])
   inputFocus(event: any): void {
-    event.value = this.returnValue(event.value);
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(event.value));
+    const value = this.returnValue(event.value);
+    this.writeValue(value);
+    event.value = value;
+    
   }
+
   constructor(private _renderer: Renderer, private _elementRef: ElementRef) {
   }
+
   ngOnInit(): void {
   }
+
   writeValue(fn: any): void {
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', this.returnValue(fn));
+    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', fn);  
   }
+
   registerOnChange(fn: any): void {
+    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', fn);  
   }
 
   registerOnTouched(fn: any): void {
+    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', fn);  
   }
 
   returnValue(value: string): any {
@@ -69,12 +83,14 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       return '';
     }
   }
+
   private percentMask(v:any):void {
     let tmp = v;
     tmp = tmp.replace(/%/,'');
     tmp = tmp.replace(/([0-9]{0})$/g, '%$1');
     return tmp;
   }
+
   private phoneMask(v: any): void {
     let n = v;
     if (n.length > 14) {
@@ -94,6 +110,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     }
     return this.onInput(n);
   }
+
   private peapollMask(v: any): void {
     let n = v;
     if (n.length > 14) {
@@ -115,19 +132,22 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     }
     return this.onInput(n);
   }
+
   private moneyMask(v: any): string {
     let tmp = v;
     tmp = tmp.replace(/([0-9]{2})$/g, ',$1');
     return tmp;
   }
+
   private onInput(value: any): void {
-    const ret = this.formataCampo(value, this.brmasker.mask, this.brmasker.len);
+    const ret = this.formatField(value, this.brmasker.mask, this.brmasker.len);
     return ret;
     // if (ret) {
     //   this.element.nativeElement.value = ret;
     // }
   }
-  private formataCampo(campo: string, Mascara: string, tamanho: number): any {
+
+  private formatField(campo: string, Mascara: string, tamanho: number): any {
     if (!tamanho) { tamanho = 99999999999; }
     let boleanoMascara;
     const exp = /\-|\.|\/|\(|\)|\,|\*|\+|\@|\#|\$|\&|\%| /g;
