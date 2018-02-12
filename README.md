@@ -184,6 +184,10 @@ npm publish
 
 # Changelog
 
+### v1.0.6
+
+- Fix mask pool
+
 ### v1.0.5
 
 - Replace percent symbol
