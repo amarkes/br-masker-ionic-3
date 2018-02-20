@@ -150,7 +150,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   private formatField(campo: string, Mascara: string, tamanho: number): any {
     if (!tamanho) { tamanho = 99999999999; }
     let boleanoMascara;
-    const exp = /\-|\.|\/|\(|\)|\,|\*|\+|\@|\#|\$|\&|\%| /g;
+    const exp = /\-|\.|\/|\(|\)|\,|\*|\+|\@|\#|\$|\&|\%|\:| /g;
     const campoSoNumeros = campo.toString().replace(exp, '');
     let posicaoCampo = 0;
     let NovoValorCampo = '';
@@ -160,7 +160,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
         boleanoMascara = ((Mascara.charAt(i) === '-') || (Mascara.charAt(i) === '.') || (Mascara.charAt(i) === '/'));
         boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === '(') || (Mascara.charAt(i) === ')') || (Mascara.charAt(i) === ' '));
         boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === ',') || (Mascara.charAt(i) === '*') || (Mascara.charAt(i) === '+'));
-        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === '@') || (Mascara.charAt(i) === '#'));
+        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === '@') || (Mascara.charAt(i) === '#') || (Mascara.charAt(i) === ':'));
         boleanoMascara = boleanoMascara || ((Mascara.charAt(i) === '$') || (Mascara.charAt(i) === '&') || (Mascara.charAt(i) === '%'));
         if (boleanoMascara) {
           NovoValorCampo += Mascara.charAt(i);

@@ -131,7 +131,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 # Characters
 
-`- . / ( ) , * + @ # $ & %`
+`- . / ( ) , * + @ # $ & % :`
 
 
 
@@ -183,6 +183,11 @@ npm publish
 ```
 
 # Changelog
+
+### v1.0.7
+
+- Fix mask  caracter `:`
+
 
 ### v1.0.6
 
