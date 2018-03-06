@@ -9,6 +9,7 @@ export class BrModel {
   phone: boolean;
   money: boolean;
   percent:boolean;
+  type: 'alfa' | 'num' | 'all' = 'alfa';
 }
 
 @Directive({
@@ -49,6 +50,9 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
+    if (!this.brmasker.type) {
+      this.brmasker.type = 'all';
+    }
   }
 
   writeValue(fn: any): void {
@@ -56,29 +60,45 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   }
 
   registerOnChange(fn: any): void {
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', fn);  
+    return;
   }
 
-  registerOnTouched(fn: any): void {
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', fn);  
+  registerOnTouched(fn: any): void { 
+    return;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    if (isDisabled) {
+      this._renderer.setElementAttribute(this._elementRef.nativeElement, 'disabled', 'true');
+    } else {
+      this._renderer.setElementAttribute(this._elementRef.nativeElement, 'disabled', 'false');
+    }
   }
 
   returnValue(value: string): any {
     if (!this.brmasker.mask) { this.brmasker.mask = ''; }
     if (value) {
+      let v = value;
+      if (this.brmasker.type == 'alfa') {
+        v = v.replace(/\d/gi,'');
+      }
+      if (this.brmasker.type == 'num') {
+        v = v.replace(/\D/gi,'');
+      }
+
       if (this.brmasker.money) {
-        return this.moneyMask(this.onInput(value));
+        return this.moneyMask(this.onInput(v));
       }
       if (this.brmasker.phone) {
-        return this.phoneMask(value);
+        return this.phoneMask(v);
       }
       if (this.brmasker.person) {
-        return this.peapollMask(value);
+        return this.peapollMask(v);
       }
       if (this.brmasker.percent) {
-        return this.percentMask(value)
+        return this.percentMask(v)
       }
-      return this.onInput(value);
+      return this.onInput(v);
     } else {
       return '';
     }
@@ -86,8 +106,9 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
 
   private percentMask(v:any):void {
     let tmp = v;
-    tmp = tmp.replace(/%/,'');
-    tmp = tmp.replace(/([0-9]{0})$/g, '%$1');
+    tmp = tmp.replace(/\D/gi,'');
+    tmp = tmp.replace(/%/gi,'');
+    tmp = tmp.replace(/([0-9]{0})$/gi, '%$1');
     return tmp;
   }
 
@@ -96,17 +117,17 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     if (n.length > 14) {
       this.brmasker.len = 15;
       this.brmasker.mask = '(99) 99999-9999';
-      n = n.replace(/\D/g,'');                    
-      n = n.replace(/(\d{2})(\d)/,'$1 $2');       
-      n = n.replace(/(\d{5})(\d)/,'$1-$2');       
-      n = n.replace(/(\d{4})(\d)/,'$1$2'); 
+      n = n.replace(/\D/gi,'');                    
+      n = n.replace(/(\d{2})(\d)/gi,'$1 $2');       
+      n = n.replace(/(\d{5})(\d)/gi,'$1-$2');       
+      n = n.replace(/(\d{4})(\d)/gi,'$1$2'); 
     } else {
       this.brmasker.len = 14;
       this.brmasker.mask = '(99) 9999-9999';
-      n = n.replace(/\D/g,'');                    
-      n = n.replace(/(\d{2})(\d)/,'$1 $2');       
-      n = n.replace(/(\d{4})(\d)/,'$1-$2');       
-      n = n.replace(/(\d{4})(\d)/,'$1$2'); 
+      n = n.replace(/\D/gi,'');                    
+      n = n.replace(/(\d{2})(\d)/gi,'$1 $2');       
+      n = n.replace(/(\d{4})(\d)/gi,'$1-$2');       
+      n = n.replace(/(\d{4})(\d)/gi,'$1$2'); 
     }
     return this.onInput(n);
   }
@@ -116,26 +137,27 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     if (n.length > 14) {
       this.brmasker.len = 18;
       this.brmasker.mask = '99.999.999/9999-99';
-      n = n.replace(/\D/g,'');                    
-      n = n.replace(/(\d{2})(\d)/,'$1.$2');       
-      n = n.replace(/(\d{3})(\d)/,'$1.$2');       
-      n = n.replace(/(\d{3})(\d)/,'$1/$2'); 
-      n = n.replace(/(\d{4})(\d{1,4})$/,'$1-$2'); 
-      n = n.replace(/(\d{2})(\d{1,2})$/,'$1$2');
+      n = n.replace(/\D/gi,'');                    
+      n = n.replace(/(\d{2})(\d)/gi,'$1.$2');       
+      n = n.replace(/(\d{3})(\d)/gi,'$1.$2');       
+      n = n.replace(/(\d{3})(\d)/gi,'$1/$2'); 
+      n = n.replace(/(\d{4})(\d{1,4})$/gi,'$1-$2'); 
+      n = n.replace(/(\d{2})(\d{1,2})$/gi,'$1$2');
     } else {
       this.brmasker.len = 14;
       this.brmasker.mask = '999.999.999-99';
-      n = n.replace(/\D/g,'');                    
-      n = n.replace(/(\d{3})(\d)/,'$1.$2');       
-      n = n.replace(/(\d{3})(\d)/,'$1.$2');       
-      n = n.replace(/(\d{3})(\d{1,2})$/,'$1-$2'); 
+      n = n.replace(/\D/gi,'');                    
+      n = n.replace(/(\d{3})(\d)/gi,'$1.$2');       
+      n = n.replace(/(\d{3})(\d)/gi,'$1.$2');       
+      n = n.replace(/(\d{3})(\d{1,2})$/gi,'$1-$2'); 
     }
     return this.onInput(n);
   }
 
   private moneyMask(v: any): string {
     let tmp = v;
-    tmp = tmp.replace(/([0-9]{2})$/g, ',$1');
+    tmp = tmp.replace(/\D/gi,'');    
+    tmp = tmp.replace(/([0-9]{2})$/gi, ',$1');
     return tmp;
   }
 
@@ -150,7 +172,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   private formatField(campo: string, Mascara: string, tamanho: number): any {
     if (!tamanho) { tamanho = 99999999999; }
     let boleanoMascara;
-    const exp = /\-|\.|\/|\(|\)|\,|\*|\+|\@|\#|\$|\&|\%|\:| /g;
+    const exp = /\-|\.|\/|\(|\)|\,|\*|\+|\@|\#|\$|\&|\%|\:| /gi;
     const campoSoNumeros = campo.toString().replace(exp, '');
     let posicaoCampo = 0;
     let NovoValorCampo = '';

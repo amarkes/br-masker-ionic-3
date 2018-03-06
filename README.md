@@ -61,6 +61,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 	 phone: boolean;
 	 person: boolean;
 	 percent:boolean;
+	 type: 'alfa' | 'num' | 'all'
 	}
 ```
 
@@ -73,6 +74,32 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 | phone | boolean | Optional |
 | person | boolean | Optional |
 | percent | boolean | Optional |
+| type | string | Optional default 'all' |
+
+
+### Exemple use of alphanumeric characters
+
+```html
+<ion-item>
+	<ion-input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'00/00/0000', len:10, type:'alfa'}"></ion-input>
+</ion-item>
+```
+
+### Exemple use of number characters
+
+```html
+<ion-item>
+	<ion-input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'00/00/0000', len:10, type:'num'}"></ion-input>
+</ion-item>
+```
+
+### Exemple use of all characters
+
+```html
+<ion-item>
+	<ion-input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'00/00/0000', len:10, type:'all'}"></ion-input>
+</ion-item>
+```
 
 ### Exemple for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
 
@@ -183,6 +210,10 @@ npm publish
 ```
 
 # Changelog
+
+### v1.0.8
+
+- Fix mask type caracter
 
 ### v1.0.7
 
