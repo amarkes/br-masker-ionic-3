@@ -58,6 +58,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 	 mask: string;
 	 len: number;
 	 money: boolean;
+         decimal: number;
 	 phone: boolean;
 	 person: boolean;
 	 percent:boolean;
@@ -71,6 +72,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 | mask | string | Optional |
 | len | string | Optional |
 | money | boolean | Optional |
+| decimal| number | Optional for 'money', default '2' |
 | phone | boolean | Optional |
 | person | boolean | Optional |
 | percent | boolean | Optional |
@@ -131,6 +133,22 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 ```html
 <input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true}" value="">
+```
+
+### Exemple for Real `99,999` With Decimal
+
+
+
+```html
+<ion-item>
+	<ion-input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true, decimal: 3}"></ion-input>
+</ion-item>
+```
+
+### usage in input
+
+```html
+<input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true, decimal: 3}" value="">
 ```
 
 ### Exemple for Percent `1%` / `100%`
