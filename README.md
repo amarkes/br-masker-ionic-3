@@ -229,6 +229,10 @@ npm publish
 
 # Changelog
 
+### v1.0.9
+
+- Add decimal in money mask
+
 ### v1.0.8
 
 - Fix mask type caracter
