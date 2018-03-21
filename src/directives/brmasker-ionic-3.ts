@@ -10,6 +10,7 @@ export class BrModel {
   money: boolean;
   percent:boolean;
   type: 'alfa' | 'num' | 'all' = 'alfa';
+  decimal: number = 2;
 }
 
 @Directive({
@@ -52,6 +53,10 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   ngOnInit(): void {
     if (!this.brmasker.type) {
       this.brmasker.type = 'all';
+    }
+
+    if (!this.brmasker.decimal) {
+      this.brmasker.decimal = 2;
     }
   }
 
@@ -156,8 +161,10 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
 
   private moneyMask(v: any): string {
     let tmp = v;
-    tmp = tmp.replace(/\D/gi,'');    
-    tmp = tmp.replace(/([0-9]{2})$/gi, ',$1');
+    tmp = tmp.replace(/\D/gi,'');
+    let replace = "([0-9]{"+this.brmasker.decimal+"})$";
+    let re = new RegExp(replace,"g");
+    tmp = tmp.replace(re, ',$1');
     return tmp;
   }
 
