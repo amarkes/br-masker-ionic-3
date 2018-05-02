@@ -1,14 +1,14 @@
-import { Directive, Input, HostListener, OnInit, ElementRef, Renderer } from '@angular/core';
+import { Directive, Input, HostListener, OnInit, ElementRef, Renderer, Injectable } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
-export class BrModel {
+export class BrMaskModel {
   mask: string;
   len: number;
   person: boolean;
   phone: boolean;
   money: boolean;
-  percent:boolean;
+  percent: boolean;
   type: 'alfa' | 'num' | 'all' = 'alfa';
   decimal: number = 2;
 }
@@ -22,8 +22,9 @@ export class BrModel {
   }]
 })
 
+@Injectable()
 export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
-  @Input() brmasker: BrModel = new BrModel();
+  @Input() brmasker: BrMaskModel = new BrMaskModel();
 
   @HostListener('keyup', ['$event'])
   inputKeyup(event: any): void {
@@ -44,7 +45,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     const value = this.returnValue(event.value);
     this.writeValue(value);
     event.value = value;
-    
+
   }
 
   constructor(private _renderer: Renderer, private _elementRef: ElementRef) {
@@ -61,14 +62,14 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   }
 
   writeValue(fn: any): void {
-    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', fn);  
+    this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', fn);
   }
 
   registerOnChange(fn: any): void {
     return;
   }
 
-  registerOnTouched(fn: any): void { 
+  registerOnTouched(fn: any): void {
     return;
   }
 
@@ -80,15 +81,63 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     }
   }
 
+  writeCreateValue(value: string, config: BrMaskModel = new BrMaskModel()): any {
+    if (value && config.phone) {
+      return value.replace(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/gi, '$1 ($2) $3-$4');
+    }
+    if (value && config.money) {
+      return this.writeValueMoney(value, config);
+    }
+    if (value && config.person) {
+      return this.writeValuePerson(value);
+    }
+
+    if (value && config.percent) {
+      return this.writeValuePercent(value);
+    }
+
+    if (value && config.mask) {
+      this.brmasker.mask = config.mask;
+      if (config.len) {
+        this.brmasker.len = config.len;
+      }
+      return this.onInput(value);
+    }
+    return value;
+  }
+
+  writeValuePercent(value: string): string {
+    value.replace(/\D/gi, '');
+    value.replace(/%/gi, '');
+    return value.replace(/([0-9]{0})$/gi, '%$1');
+  }
+
+  writeValuePerson(value: string): string {
+    if (value.length <= 11) {
+      return value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/gi, '\$1.\$2.\$3\-\$4');
+    } else {
+      return value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/gi, '\$1.\$2.\$3\/\$4\-\$5');
+    }
+  }
+
+  writeValueMoney(value: string, config: BrMaskModel = new BrMaskModel()): string {
+    value.replace(/\D/gi, '');
+    let replace = "([0-9]{" + config.decimal + "})$";
+    let re = new RegExp(replace, "g");
+    return value.replace(re, ',$1');
+  }
+
+
+
   returnValue(value: string): any {
     if (!this.brmasker.mask) { this.brmasker.mask = ''; }
     if (value) {
       let v = value;
       if (this.brmasker.type == 'alfa') {
-        v = v.replace(/\d/gi,'');
+        v = v.replace(/\d/gi, '');
       }
       if (this.brmasker.type == 'num') {
-        v = v.replace(/\D/gi,'');
+        v = v.replace(/\D/gi, '');
       }
 
       if (this.brmasker.money) {
@@ -109,10 +158,10 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     }
   }
 
-  private percentMask(v:any):void {
+  private percentMask(v: any): void {
     let tmp = v;
-    tmp = tmp.replace(/\D/gi,'');
-    tmp = tmp.replace(/%/gi,'');
+    tmp = tmp.replace(/\D/gi, '');
+    tmp = tmp.replace(/%/gi, '');
     tmp = tmp.replace(/([0-9]{0})$/gi, '%$1');
     return tmp;
   }
@@ -122,17 +171,17 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     if (n.length > 14) {
       this.brmasker.len = 15;
       this.brmasker.mask = '(99) 99999-9999';
-      n = n.replace(/\D/gi,'');                    
-      n = n.replace(/(\d{2})(\d)/gi,'$1 $2');       
-      n = n.replace(/(\d{5})(\d)/gi,'$1-$2');       
-      n = n.replace(/(\d{4})(\d)/gi,'$1$2'); 
+      n = n.replace(/\D/gi, '');
+      n = n.replace(/(\d{2})(\d)/gi, '$1 $2');
+      n = n.replace(/(\d{5})(\d)/gi, '$1-$2');
+      n = n.replace(/(\d{4})(\d)/gi, '$1$2');
     } else {
       this.brmasker.len = 14;
       this.brmasker.mask = '(99) 9999-9999';
-      n = n.replace(/\D/gi,'');                    
-      n = n.replace(/(\d{2})(\d)/gi,'$1 $2');       
-      n = n.replace(/(\d{4})(\d)/gi,'$1-$2');       
-      n = n.replace(/(\d{4})(\d)/gi,'$1$2'); 
+      n = n.replace(/\D/gi, '');
+      n = n.replace(/(\d{2})(\d)/gi, '$1 $2');
+      n = n.replace(/(\d{4})(\d)/gi, '$1-$2');
+      n = n.replace(/(\d{4})(\d)/gi, '$1$2');
     }
     return this.onInput(n);
   }
@@ -142,28 +191,28 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     if (n.length > 14) {
       this.brmasker.len = 18;
       this.brmasker.mask = '99.999.999/9999-99';
-      n = n.replace(/\D/gi,'');                    
-      n = n.replace(/(\d{2})(\d)/gi,'$1.$2');       
-      n = n.replace(/(\d{3})(\d)/gi,'$1.$2');       
-      n = n.replace(/(\d{3})(\d)/gi,'$1/$2'); 
-      n = n.replace(/(\d{4})(\d{1,4})$/gi,'$1-$2'); 
-      n = n.replace(/(\d{2})(\d{1,2})$/gi,'$1$2');
+      n = n.replace(/\D/gi, '');
+      n = n.replace(/(\d{2})(\d)/gi, '$1.$2');
+      n = n.replace(/(\d{3})(\d)/gi, '$1.$2');
+      n = n.replace(/(\d{3})(\d)/gi, '$1/$2');
+      n = n.replace(/(\d{4})(\d{1,4})$/gi, '$1-$2');
+      n = n.replace(/(\d{2})(\d{1,2})$/gi, '$1$2');
     } else {
       this.brmasker.len = 14;
       this.brmasker.mask = '999.999.999-99';
-      n = n.replace(/\D/gi,'');                    
-      n = n.replace(/(\d{3})(\d)/gi,'$1.$2');       
-      n = n.replace(/(\d{3})(\d)/gi,'$1.$2');       
-      n = n.replace(/(\d{3})(\d{1,2})$/gi,'$1-$2'); 
+      n = n.replace(/\D/gi, '');
+      n = n.replace(/(\d{3})(\d)/gi, '$1.$2');
+      n = n.replace(/(\d{3})(\d)/gi, '$1.$2');
+      n = n.replace(/(\d{3})(\d{1,2})$/gi, '$1-$2');
     }
     return this.onInput(n);
   }
 
   private moneyMask(v: any): string {
     let tmp = v;
-    tmp = tmp.replace(/\D/gi,'');
-    let replace = "([0-9]{"+this.brmasker.decimal+"})$";
-    let re = new RegExp(replace,"g");
+    tmp = tmp.replace(/\D/gi, '');
+    let replace = "([0-9]{" + this.brmasker.decimal + "})$";
+    let re = new RegExp(replace, "g");
     tmp = tmp.replace(re, ',$1');
     return tmp;
   }

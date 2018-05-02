@@ -229,6 +229,10 @@ npm publish
 
 # Changelog
 
+### v1.0.10
+
+- Create a writeCreateValue for initial value
+
 ### v1.0.9
 
 - Add decimal in money mask
