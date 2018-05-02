@@ -20,6 +20,33 @@ return custom mask in input for ionic 3
 npm install brmasker-ionic-3 --save
 ```
 
+
+# Features
+
+
+```js
+import { BrMaskerIonic3, BrMaskModel } from 'brmasker-ionic-3';
+
+...
+
+constructor(public brMaskerIonic3: BrMaskerIonic3) {}
+
+...
+
+protected createForm(): FormGroup {
+  return new FormGroup({
+    phone: new FormControl(this.createPhone())
+  });
+}
+
+private createPhone(): string {
+  const config: BrMaskModel = new BrMaskModel();
+  config.phone = true;
+  return this.brMaskerIonic3.writeCreateValue('99999999999', config);
+}
+```
+
+
 ### HTML
 
 ### correct usage
@@ -51,10 +78,10 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
 
 # Inputs
 
-* brmasker: BrModel
+* brmasker: BrMaskModel
 
 ```js
-	BrModel = {
+	BrMaskModel = {
 	 mask: string;
 	 len: number;
 	 money: boolean;
@@ -232,6 +259,7 @@ npm publish
 ### v1.0.10
 
 - Create a writeCreateValue for initial value
+- Change name model from `BrModel` to `BrMaskModel`
 
 ### v1.0.9
 
