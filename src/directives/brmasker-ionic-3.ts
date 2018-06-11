@@ -121,10 +121,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   }
 
   writeValueMoney(value: string, config: BrMaskModel = new BrMaskModel()): string {
-    value.replace(/\D/gi, '');
-    let replace = "([0-9]{" + config.decimal + "})$";
-    let re = new RegExp(replace, "g");
-    return value.replace(re, ',$1');
+    return this.moneyMask(value, config.decimal);
   }
 
 
@@ -141,7 +138,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       }
 
       if (this.brmasker.money) {
-        return this.moneyMask(this.onInput(v));
+        return this.moneyMask(this.onInput(v), null);
       }
       if (this.brmasker.phone) {
         return this.phoneMask(v);
@@ -208,13 +205,20 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     return this.onInput(n);
   }
 
-  private moneyMask(v: any): string {
-    let tmp = v;
-    tmp = tmp.replace(/\D/gi, '');
-    let replace = "([0-9]{" + this.brmasker.decimal + "})$";
-    let re = new RegExp(replace, "g");
-    tmp = tmp.replace(re, ',$1');
-    return tmp;
+  private moneyMask(value: any, configDecimal: number): string {
+    const decimal = configDecimal || this.brmasker.decimal;
+
+    value = value
+      .replace(/\D/gi, '')
+      .replace(new RegExp("([0-9]{" + decimal + "})$", "g"), ',$1');
+
+    if (value.length === decimal + 1) {
+      return "0" + value; // leading 0 so we're not left with something weird like ",50"
+    } else if (value.length > decimal + 2 && value.charAt(0) === '0') {
+        return value.substr(1); // remove leading 0 when we don't need it anymore
+    }
+
+    return value;
   }
 
   private onInput(value: any): void {
