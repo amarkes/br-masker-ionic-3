@@ -256,6 +256,10 @@ npm publish
 
 # Changelog
 
+### v1.0.11
+
+- Refactored moneyMask so it includes a leading 0 for when we have only
+
 ### v1.0.10
 
 - Create a writeCreateValue for initial value
