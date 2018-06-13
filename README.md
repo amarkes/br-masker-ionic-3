@@ -20,6 +20,35 @@ return custom mask in input for ionic 3
 npm install brmasker-ionic-3 --save
 ```
 
+# Usage
+
+```javascript
+import { BrMaskerModule } from 'brmasker-ionic-3';
+
+@NgModule({
+  imports: [
+    BrMaskerModule
+  ],
+})
+
+```
+
+### HTML
+
+### correct usage
+
+```html
+<ion-item>
+	<ion-input type="text" name="cpf" placeholder="CPF" [brmasker]="{mask:'000.000.000-00', len:14}"></ion-input>
+</ion-item>
+```
+
+### usage in input
+
+```html
+<input type="text" name="cpf" placeholder="CPF" [brmasker]="{mask:'000.000.000-00', len:14}" value="">
+```
+
 
 # Features
 
@@ -44,36 +73,6 @@ private createPhone(): string {
   config.phone = true;
   return this.brMaskerIonic3.writeCreateValue('99999999999', config);
 }
-```
-
-
-### HTML
-
-### correct usage
-
-```html
-<ion-item>
-	<ion-input type="text" name="cpf" placeholder="CPF" [brmasker]="{mask:'000.000.000-00', len:14}"></ion-input>
-</ion-item>
-```
-
-### usage in input
-
-```html
-<input type="text" name="cpf" placeholder="CPF" [brmasker]="{mask:'000.000.000-00', len:14}" value="">
-```
-
-# Module
-
-```javascript
-import { BrMaskerModule } from 'brmasker-ionic-3';
-
-@NgModule({
-  imports: [
-    BrMaskerModule
-  ],
-})
-
 ```
 
 # Inputs
