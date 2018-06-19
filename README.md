@@ -88,7 +88,10 @@ private createPhone(): string {
 	 phone: boolean;
 	 person: boolean;
 	 percent:boolean;
-	 type: 'alfa' | 'num' | 'all'
+	 type: 'alfa' | 'num' | 'all';
+	 decimal: number = 2;
+  	 decimalCaracter: string = `,`;
+  	 thousand: string;
 	}
 ```
 
@@ -103,6 +106,9 @@ private createPhone(): string {
 | person | boolean | Optional |
 | percent | boolean | Optional |
 | type | string | Optional default 'all' |
+| decimalCaracter | string | Optional default ','  |
+| decimal | number | Optional default '2' |
+| thousand | string | Optional |
 
 
 ### Exemple use of alphanumeric characters
@@ -154,6 +160,14 @@ private createPhone(): string {
 	<ion-input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true}"></ion-input>
 </ion-item>
 ```
+
+### Exemple for Money
+```html
+<ion-item>
+	<ion-input type="text" formControlName="money" name="money" placeholder="Money" [brmasker]="{money: true, thousand: ',',  decimalCaracter: '.', decimal: '3'}"></ion-input> 
+</ion-item>
+```
+
 
 ### usage in input
 
@@ -254,6 +268,10 @@ npm publish
 ```
 
 # Changelog
+
+### v1.1.0
+
+- New mask for money, add thousand
 
 ### v1.0.11
 

@@ -11,6 +11,8 @@ export class BrMaskModel {
   percent: boolean;
   type: 'alfa' | 'num' | 'all' = 'alfa';
   decimal: number = 2;
+  decimalCaracter: string = `,`;
+  thousand: string;
 }
 
 @Directive({
@@ -58,6 +60,10 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
 
     if (!this.brmasker.decimal) {
       this.brmasker.decimal = 2;
+    }
+
+    if (!this.brmasker.decimalCaracter) {
+      this.brmasker.decimalCaracter = ',';
     }
   }
 
@@ -121,7 +127,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
   }
 
   writeValueMoney(value: string, config: BrMaskModel = new BrMaskModel()): string {
-    return this.moneyMask(value, config.decimal);
+    return this.moneyMask(value, config);
   }
 
 
@@ -138,7 +144,7 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       }
 
       if (this.brmasker.money) {
-        return this.moneyMask(this.onInput(v), null);
+        return this.moneyMask(this.onInput(v), this.brmasker);
       }
       if (this.brmasker.phone) {
         return this.phoneMask(v);
@@ -205,17 +211,23 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     return this.onInput(n);
   }
 
-  private moneyMask(value: any, configDecimal: number): string {
-    const decimal = configDecimal || this.brmasker.decimal;
+  private moneyMask(value: any, config: BrMaskModel): string {
+    const decimal = config.decimal || this.brmasker.decimal;
 
     value = value
       .replace(/\D/gi, '')
-      .replace(new RegExp("([0-9]{" + decimal + "})$", "g"), ',$1');
+      .replace(new RegExp("([0-9]{" + decimal + "})$", "g"), config.decimalCaracter + '$1');
 
     if (value.length === decimal + 1) {
       return "0" + value; // leading 0 so we're not left with something weird like ",50"
     } else if (value.length > decimal + 2 && value.charAt(0) === '0') {
-        return value.substr(1); // remove leading 0 when we don't need it anymore
+      return value.substr(1); // remove leading 0 when we don't need it anymore
+    }
+    if (config.thousand && value.length > (Number(4) + Number(config.decimal))) {
+      value = value.replace(new RegExp(`([0-9]{3})${config.decimalCaracter}([0-9]{${config.decimal}}$)`, `g`), `${config.thousand}$1${config.decimalCaracter}$2`);
+    }
+    if (config.thousand && value.length > (Number(8) + Number(config.decimal))) {
+      value = value.replace(new RegExp(`([0-9]{3})${config.thousand}([0-9]{3})${config.decimalCaracter}([0-9]{${config.decimal}}$)`, `g`), `${config.thousand}$1${config.thousand}$2${config.decimalCaracter}$3`);
     }
 
     return value;
