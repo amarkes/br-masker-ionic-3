@@ -111,7 +111,7 @@ private createPhone(): string {
 | thousand | string | Optional |
 
 
-### Exemple use of alphanumeric characters
+### Example use of alphanumeric characters
 
 ```html
 <ion-item>
@@ -119,7 +119,7 @@ private createPhone(): string {
 </ion-item>
 ```
 
-### Exemple use of number characters
+### Example use of number characters
 
 ```html
 <ion-item>
@@ -127,7 +127,7 @@ private createPhone(): string {
 </ion-item>
 ```
 
-### Exemple use of all characters
+### Example use of all characters
 
 ```html
 <ion-item>
@@ -135,7 +135,7 @@ private createPhone(): string {
 </ion-item>
 ```
 
-### Exemple for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
+### Example for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
 
 
 
@@ -151,7 +151,7 @@ private createPhone(): string {
 <input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{person: true}" value="">
 ```
 
-### Exemple for Real `999,99`
+### Example for Real `999,99`
 
 
 
@@ -161,7 +161,7 @@ private createPhone(): string {
 </ion-item>
 ```
 
-### Exemple for Money
+### Example for Money
 ```html
 <ion-item>
 	<ion-input type="text" formControlName="money" name="money" placeholder="Money" [brmasker]="{money: true, thousand: ',',  decimalCaracter: '.', decimal: '3'}"></ion-input> 
@@ -175,7 +175,7 @@ private createPhone(): string {
 <input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true}" value="">
 ```
 
-### Exemple for Real `99,999` With Decimal
+### Example for Real `99,999` With Decimal
 
 
 
@@ -191,12 +191,12 @@ private createPhone(): string {
 <input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true, decimal: 3}" value="">
 ```
 
-### Exemple for Percent `1%` / `100%`
+### Example for Percent `1%` / `100%`
 ```html
 <input type="text" name="percent" placeholder="% Percent" [brmasker]="{percent: true}" value="">
 ```
 
-### Exemple for Phone `(99) 9999-9999` / `(99) 99999-9999`
+### Example for Phone `(99) 9999-9999` / `(99) 99999-9999`
 
 
 
