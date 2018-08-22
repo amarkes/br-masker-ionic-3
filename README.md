@@ -269,6 +269,10 @@ npm publish
 
 # Changelog
 
+### v1.2.0
+
+- Remove DevDependencies for fix bugs
+
 ### v1.1.0
 
 - New mask for money, add thousand
