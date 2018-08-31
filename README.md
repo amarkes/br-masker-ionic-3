@@ -278,6 +278,10 @@ npm publish
 
 # Changelog
 
+### v1.3.1
+
+- fix tag
+
 ### v1.3.0
 
 - adding special character shape
