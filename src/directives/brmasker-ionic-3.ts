@@ -13,6 +13,7 @@ export class BrMaskModel {
   decimal: number = 2;
   decimalCaracter: string = `,`;
   thousand: string;
+  userCaracters: boolean = false;
 }
 
 @Directive({
@@ -102,6 +103,10 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       return this.writeValuePercent(value);
     }
 
+    if (this.brmasker.userCaracters) {
+      return this.usingSpecialCharacters(value, this.brmasker.mask, this.brmasker.len)
+    }
+
     if (value && config.mask) {
       this.brmasker.mask = config.mask;
       if (config.len) {
@@ -154,6 +159,9 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       }
       if (this.brmasker.percent) {
         return this.percentMask(v)
+      }
+      if (this.brmasker.userCaracters) {
+        return this.usingSpecialCharacters(v, this.brmasker.mask, this.brmasker.len)
       }
       return this.onInput(v);
     } else {
@@ -239,6 +247,29 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     // if (ret) {
     //   this.element.nativeElement.value = ret;
     // }
+  }
+
+  private usingSpecialCharacters(campo: string, Mascara: string, tamanho: number): string {
+    if (!tamanho) { tamanho = 99999999999; }
+    let boleanoMascara;
+    const exp = /\-|\.|\,| /gi;
+    const campoSoNumeros = campo.toString().replace(exp, '');
+    let posicaoCampo = 0;
+    let NovoValorCampo = '';
+    let TamanhoMascara = campoSoNumeros.length;
+    for (let i = 0; i < TamanhoMascara; i++) {
+      if (i < tamanho) {
+        boleanoMascara = ((Mascara.charAt(i) === '-') || (Mascara.charAt(i) === '.') || (Mascara.charAt(i) === ','));
+        if (boleanoMascara) {
+          NovoValorCampo += Mascara.charAt(i);
+          TamanhoMascara++;
+        } else {
+          NovoValorCampo += campoSoNumeros.charAt(posicaoCampo);
+          posicaoCampo++;
+        }
+      }
+    }
+    return NovoValorCampo;
   }
 
   private formatField(campo: string, Mascara: string, tamanho: number): any {

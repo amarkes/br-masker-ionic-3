@@ -109,9 +109,14 @@ private createPhone(): string {
 | decimalCaracter | string | Optional default ','  |
 | decimal | number | Optional default '2' |
 | thousand | string | Optional |
+| userCaracters | boolean | Optional default `false` |
 
 
 ### Example use of alphanumeric characters
+
+```html
+<ion-input type="text" placeholder="Use special character" [brmasker]="{mask:'00-00', len:5, userCaracters: true}"></ion-input>
+```
 
 ```html
 <ion-item>
@@ -268,6 +273,10 @@ npm publish
 ```
 
 # Changelog
+
+### v1.3.0
+
+- adding special character shape
 
 ### v1.2.0
 
