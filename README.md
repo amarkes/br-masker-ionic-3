@@ -119,9 +119,6 @@ private createPhone(): string {
 
 ### Example use of alphanumeric characters
 
-```html
-<ion-input type="text" placeholder="Use special character" [brmasker]="{mask:'00-00', len:5, userCaracters: true}"></ion-input>
-```
 
 ```html
 <ion-item>
@@ -137,12 +134,17 @@ private createPhone(): string {
 </ion-item>
 ```
 
-### Example use of all characters
-
 ```html
 <ion-item>
 	<ion-input type="text" name="cpf" placeholder="CPF/CNPJ" [brmasker]="{mask:'00/00/0000', len:10, type:'all'}"></ion-input>
 </ion-item>
+```
+
+
+### Example use of all characters
+
+```html
+<ion-input type="text" placeholder="Use special character" [brmasker]="{mask:'00-00', len:5, userCaracters: true}"></ion-input>
 ```
 
 ### Example for CPF/CNPJ `999.999.999-99` / `99.999.999/9999-99`
