@@ -95,7 +95,8 @@ private createPhone(): string {
 	 type: 'alfa' | 'num' | 'all';
 	 decimal: number = 2;
   	 decimalCaracter: string = `,`;
-  	 thousand: string;
+	thousand: string;
+	userCaracters = false;
 	}
 ```
 
