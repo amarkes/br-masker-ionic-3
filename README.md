@@ -6,6 +6,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/amarkes/br-masker-ionic-3/master/LICENSE)
 [![Build Status](https://travis-ci.org/amarkes/brmasker-ionic.svg?branch=master)](https://travis-ci.org/amarkes/br-masker-ionic-3)
 
+### New version for ionic 4 [br-mask](https://github.com/amarkes/br-mask)
 
 return custom mask in input for ionic 3
 
