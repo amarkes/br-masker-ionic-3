@@ -86,18 +86,19 @@ private createPhone(): string {
 
 ```js
 	BrMaskModel = {
-	 mask: string;
-	 len: number;
-	 money: boolean;
-         decimal: number;
-	 phone: boolean;
-	 person: boolean;
-	 percent:boolean;
-	 type: 'alfa' | 'num' | 'all';
-	 decimal: number = 2;
-  	 decimalCaracter: string = `,`;
-	thousand: string;
-	userCaracters = false;
+		mask: string;
+		len: number;
+		money: boolean;
+		decimal: number;
+		phone: boolean;
+		person: boolean;
+		percent:boolean;
+		type: 'alfa' | 'num' | 'all';
+		decimal: number = 2;
+		decimalCaracter: string = `,`;
+		thousand: string;
+		userCaracters = false;
+		numberAndTousand = false;
 	}
 ```
 
@@ -116,6 +117,7 @@ private createPhone(): string {
 | decimal | number | Optional default '2' |
 | thousand | string | Optional |
 | userCaracters | boolean | Optional default `false` |
+| numberAndTousand | boolean | Optional default `false` |
 
 
 ### Example use of alphanumeric characters
@@ -187,6 +189,15 @@ private createPhone(): string {
 ```html
 <input type="text" name="money" placeholder="(R$) Real" [brmasker]="{money: true}" value="">
 ```
+
+### Example for thousand number
+
+```html
+<ion-item>
+	<ion-input type="text" formControlName="phone" [value]="form.get('phone').value" name="phone" placeholder="Phone" [brmasker]="{numberAndTousand: true, thousand: ','}"></ion-input>
+</ion-item>
+```
+
 
 ### Example for Real `99,999` With Decimal
 
@@ -281,6 +292,10 @@ npm publish
 ```
 
 # Changelog
+
+### v1.4.0
+
+- add thousand in number
 
 ### v1.3.1
 

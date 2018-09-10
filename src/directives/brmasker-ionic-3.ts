@@ -1,7 +1,6 @@
 import { Directive, Input, HostListener, OnInit, ElementRef, Renderer, Injectable } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-
 export class BrMaskModel {
   mask: string;
   len: number;
@@ -14,15 +13,17 @@ export class BrMaskModel {
   decimalCaracter: string = `,`;
   thousand: string;
   userCaracters: boolean = false;
+  numberAndTousand: boolean = false;
 }
 
 @Directive({
   selector: '[brmasker]',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: BrMaskerIonic3,
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: BrMaskerIonic3,
+      multi: true
+    }]
 })
 
 @Injectable()
@@ -103,10 +104,6 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       return this.writeValuePercent(value);
     }
 
-    if (this.brmasker.userCaracters) {
-      return this.usingSpecialCharacters(value, this.brmasker.mask, this.brmasker.len)
-    }
-
     if (value && config.mask) {
       this.brmasker.mask = config.mask;
       if (config.len) {
@@ -158,10 +155,13 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
         return this.peapollMask(v);
       }
       if (this.brmasker.percent) {
-        return this.percentMask(v)
+        return this.percentMask(v);
+      }
+      if (this.brmasker.numberAndTousand) {
+        return this.thousand(v);
       }
       if (this.brmasker.userCaracters) {
-        return this.usingSpecialCharacters(v, this.brmasker.mask, this.brmasker.len)
+        return this.usingSpecialCharacters(v, this.brmasker.mask, this.brmasker.len);
       }
       return this.onInput(v);
     } else {
@@ -247,6 +247,14 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     // if (ret) {
     //   this.element.nativeElement.value = ret;
     // }
+  }
+
+  private thousand(value: string): string {
+    let val = value.replace(/\D/gi, '');
+    const reverse = val.toString().split('').reverse().join('');
+    const thousands = reverse.match(/\d{1,3}/g);
+    val = thousands.join(`${this.brmasker.thousand || '.'}`).split('').reverse().join('');
+    return val;
   }
 
   private usingSpecialCharacters(campo: string, Mascara: string, tamanho: number): string {
