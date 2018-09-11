@@ -11,7 +11,8 @@ import { BrMaskerIonicServices3 } from './directives/brmasker-ionic-services';
     BrMaskerIonicServices3
   ],
   exports: [
-    BrMaskerIonic3
+    BrMaskerIonic3,
+    BrMaskerIonicServices3
   ],
   imports: [
     CommonModule
