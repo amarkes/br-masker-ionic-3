@@ -295,6 +295,32 @@ npm publish
 
 import module `BrMaskerModule` and service import `BrMaskerIonicServices3`
 
+```js
+import { BrMaskModel } from 'brmasker-ionic-3';
+
+...
+@NgModule({
+  imports: [
+    BrMaskerModule
+  ],
+})
+...
+
+
+import { Injectable } from '@angular/core';
+import { BrMaskerIonicServices3, BrMaskServicesModel } from 'brmasker-ionic-3';
+
+@Injectable()
+export class Util {
+  constructor(private brMasker: BrMaskerIonicServices3) { }
+
+  mascaraCPFCNPJ(valor: string) {
+    return this.brMasker.writeValuePerson(valor);
+  }
+}
+
+```
+
 ```
 writeCreateValue(value: string, config: BrMaskServicesModel): string
 
