@@ -291,7 +291,28 @@ npm run build
 npm publish
 ```
 
+# use in services
+
+```
+writeCreateValue(value: string, config: BrMaskServicesModel): string
+
+writeValuePercent(value: string): string
+
+writeValuePerson(value: string): string
+
+writeValueMoney(value: string, config: BrMaskServicesModel = new BrMaskServicesModel()): string
+
+writeValueNumberAndThousand(value: string, config: BrMaskServicesModel = new BrMaskServicesModel()): string
+
+writeValueusingSpecialCharacters(value: string, config: BrMaskServicesModel = new BrMaskServicesModel()): string 
+```
+
+
 # Changelog
+
+### v1.5.0
+
+- add services for mask
 
 ### v1.4.0
 
