@@ -310,6 +310,10 @@ writeValueusingSpecialCharacters(value: string, config: BrMaskServicesModel = ne
 
 # Changelog
 
+### v1.5.1
+
+- fix publish
+
 ### v1.5.0
 
 - add services for mask

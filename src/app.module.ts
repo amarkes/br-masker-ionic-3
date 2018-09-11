@@ -7,7 +7,8 @@ import { BrMaskerIonicServices3 } from './directives/brmasker-ionic-services';
 
 @NgModule({
   declarations: [
-    BrMaskerIonic3
+    BrMaskerIonic3,
+    BrMaskerIonicServices3
   ],
   exports: [
     BrMaskerIonic3
