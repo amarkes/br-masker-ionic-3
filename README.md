@@ -293,6 +293,8 @@ npm publish
 
 # use in services
 
+import module `BrMaskerModule` and service import `BrMaskerIonicServices3`
+
 ```
 writeCreateValue(value: string, config: BrMaskServicesModel): string
 
