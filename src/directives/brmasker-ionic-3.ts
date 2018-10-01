@@ -253,7 +253,9 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
     let val = value.replace(/\D/gi, '');
     const reverse = val.toString().split('').reverse().join('');
     const thousands = reverse.match(/\d{1,3}/g);
-    val = thousands.join(`${this.brmasker.thousand || '.'}`).split('').reverse().join('');
+    if (thousands) {
+        return thousands.join(`${this.brmasker.thousand || '.'}`).split('').reverse().join('');
+    }
     return val;
   }
 
