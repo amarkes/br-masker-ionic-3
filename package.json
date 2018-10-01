@@ -1,6 +1,6 @@
 {
   "name": "brmasker-ionic-3",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "mascara para inputs",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",

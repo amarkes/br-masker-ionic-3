@@ -194,7 +194,7 @@ private createPhone(): string {
 
 ```html
 <ion-item>
-	<ion-input type="text" formControlName="phone" [value]="form.get('phone').value" name="phone" placeholder="Phone" [brmasker]="{numberAndTousand: true, thousand: ','}"></ion-input>
+	<ion-input type="tel" formControlName="phone" [value]="form.get('phone').value" name="phone" placeholder="Phone" [brmasker]="{numberAndTousand: true, thousand: ','}"></ion-input>
 </ion-item>
 ```
 
@@ -337,6 +337,10 @@ writeValueusingSpecialCharacters(value: string, config: BrMaskServicesModel = ne
 
 
 # Changelog
+
+### v1.5.3
+
+- fix numberAndTousand for number null
 
 ### v1.5.2
 
