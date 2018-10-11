@@ -6,6 +6,7 @@ export class BrMaskModel {
   len: number;
   person: boolean;
   phone: boolean;
+  phoneNotDDD: boolean;
   money: boolean;
   percent: boolean;
   type: 'alfa' | 'num' | 'all' = 'alfa';
@@ -151,6 +152,9 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       if (this.brmasker.phone) {
         return this.phoneMask(v);
       }
+      if (this.brmasker.phoneNotDDD) {
+        return this.phoneNotDDDMask(v);
+      }
       if (this.brmasker.person) {
         return this.peapollMask(v);
       }
@@ -191,6 +195,24 @@ export class BrMaskerIonic3 implements OnInit, ControlValueAccessor {
       this.brmasker.mask = '(99) 9999-9999';
       n = n.replace(/\D/gi, '');
       n = n.replace(/(\d{2})(\d)/gi, '$1 $2');
+      n = n.replace(/(\d{4})(\d)/gi, '$1-$2');
+      n = n.replace(/(\d{4})(\d)/gi, '$1$2');
+    }
+    return this.onInput(n);
+  }
+
+  private phoneNotDDDMask(v: any): void {
+    let n = v;
+    if (n.length > 9) {
+      this.brmasker.len = 10;
+      this.brmasker.mask = '99999-9999';
+      n = n.replace(/\D/gi, '');
+      n = n.replace(/(\d{5})(\d)/gi, '$1-$2');
+      n = n.replace(/(\d{4})(\d)/gi, '$1$2');
+    } else {
+      this.brmasker.len = 9;
+      this.brmasker.mask = '9999-9999';
+      n = n.replace(/\D/gi, '');
       n = n.replace(/(\d{4})(\d)/gi, '$1-$2');
       n = n.replace(/(\d{4})(\d)/gi, '$1$2');
     }

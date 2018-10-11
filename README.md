@@ -91,6 +91,7 @@ private createPhone(): string {
 		money: boolean;
 		decimal: number;
 		phone: boolean;
+		phoneNotDDD: boolean;
 		person: boolean;
 		percent:boolean;
 		type: 'alfa' | 'num' | 'all';
@@ -110,6 +111,7 @@ private createPhone(): string {
 | money | boolean | Optional |
 | decimal| number | Optional for 'money', default '2' |
 | phone | boolean | Optional |
+| phoneNotDDD | boolean | Optional |
 | person | boolean | Optional |
 | percent | boolean | Optional |
 | type | string | Optional default 'all' |
@@ -337,6 +339,10 @@ writeValueusingSpecialCharacters(value: string, config: BrMaskServicesModel = ne
 
 
 # Changelog
+
+### v1.6.3
+
+- add phoneNotDDD
 
 ### v1.5.3
 
